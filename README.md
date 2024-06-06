@@ -10,7 +10,7 @@ This project is meant to assess your ability to perform at a senior level at Tru
 
 ### Goal
 
-Your mission is to implement the Truemed payment method on this checkout page. Your priorities are:
+Your mission is to implement the Truemed payment method on [this checkout page](https://www.loom.com/share/eb3c03c95ec4456282a5f5e0f486fff0?sid=deb7ff13-d26c-499c-be18-d520a1a5290a). Your priorities are:
 
 P0 (most important):
 
@@ -59,7 +59,6 @@ It's important to make sure your submission is only visible to people with colla
 - Write great functions.
 - Write a great plan for next steps.
 - Don't refactor anything.
-- Watch [this video](https://www.loom.com/share/eb3c03c95ec4456282a5f5e0f486fff0?sid=deb7ff13-d26c-499c-be18-d520a1a5290a) for UX clarification.
 
 ### What does a valid UK mailing address look like?
 
