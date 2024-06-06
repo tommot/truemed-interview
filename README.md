@@ -6,8 +6,7 @@ This project is meant to assess your ability to perform at a senior level at Tru
 
 ### Constraints
 
-- Please don’t spend more than 3 hours on this project
-- Read: Use good prioritization, only do the essentials.
+- Please don’t spend more than 3 hours on this project. We expect a barely-functional Proof-of-Concept and a write-up of next steps.
 
 ### Goal
 
@@ -43,7 +42,7 @@ Out of Scope (don't do these, not even as a bonus):
 
 It's important to make sure your submission is only visible to people with collaborator access to your private repo. Do not make a pull request against our main repository. Instead:
 
-- Create a new branch with your changes
+- Create a new branch (from your private fork's main branch) with your changes
 - Create a Pull Request against your own fork's main branch
 - Add `john@truemed.com` as an outside collaborator and email him a link to your Pull Request.
 
@@ -60,10 +59,14 @@ It's important to make sure your submission is only visible to people with colla
 - Write great functions. Don't refactor large things.
 - Write a great plan for next steps.
 
-## What does a valid UK mailing address look like?
+### What does a valid UK mailing address look like?
 
 - https://chatgpt.com/share/bcd2d4e4-28e6-4db9-9081-5c02cb496e4a
 
-## Where should I start writing code?
+### Where should I start writing code?
 
 - `backend/payments/views.py`
+
+### How should I handle secrets?
+
+- Just hard-code all keys in `backend/src/settings/base.py`
