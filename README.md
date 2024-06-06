@@ -24,7 +24,7 @@ Out of Scope (don't do these, not even as a bonus):
 
 - Any improvements to the store whatsoever
 - Anything that requires a Django migration
-- Robust order-tracking
+- Order-confirmation logic
 
 ### How can I get started with the Truemed API?
 
@@ -71,3 +71,9 @@ It's important to make sure your submission is only visible to people with colla
 ### How should I handle secrets?
 
 - Just hard-code all keys in `backend/src/settings/base.py`
+
+### Why is this repository so... bad?
+
+- Truemed has high technical standards
+- But we integrate with 1,000s of companies
+- We need to meet our (mostly non-technical) partners where they're at.
