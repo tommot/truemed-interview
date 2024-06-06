@@ -10,7 +10,7 @@ This project is meant to assess your ability to perform at a senior level at Tru
 
 ### Goal
 
-Your mission is to implement the Truemed payment method on [this checkout page](https://www.loom.com/share/eb3c03c95ec4456282a5f5e0f486fff0?sid=deb7ff13-d26c-499c-be18-d520a1a5290a). Your priorities are:
+Your mission is to implement the Truemed payment method on [this checkout page](https://www.loom.com/share/cde13fccd80543a7bb31ffe3b10e94c1?sid=f5d5af77-2605-42f2-8afd-e74fdd732c8f). Your priorities are:
 
 P0 (most important):
 
