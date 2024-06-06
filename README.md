@@ -6,7 +6,7 @@ This project is meant to assess your ability to perform at a senior level at Tru
 
 ### Constraints
 
-- Please don’t spend more than 8 hours on this project
+- Please don’t spend more than 3 hours on this project
 - Read: Use good prioritization, only do the essentials.
 
 ### Goal
@@ -15,7 +15,7 @@ Your mission is to implement the Truemed payment method on this checkout page. Y
 
 P0 (most important):
 
-- Get a Proof-of-Concept UX in place (redirect to Truemed for payment capture when a user presses the "order & pay" button)
+- Get a Proof-of-Concept UX in place (redirect to Truemed for payment capture when a user presses the "Pay with HSA / FSA" button)
 
 P1 (nice-to-have):
 
@@ -24,18 +24,14 @@ P1 (nice-to-have):
 Out of Scope (don't do these, not even as a bonus):
 
 - Any improvements to the store whatsoever
+- Anything that requires a Django migration
 - Robust order-tracking
 
-### How can I get started with Truemed?
+### How can I get started with the Truemed API?
 
 - [Truemed developer docs](https://developers.truemed.com)
   - use `https://dev-api.truemed.com` as the base URL for our sandbox environment
 - You should have an email with sandbox credentials
-
-### Helpful Hints
-
-- Need a valid UK mailing address? Try something like this:
-  - https://chatgpt.com/share/bcd2d4e4-28e6-4db9-9081-5c02cb496e4a
 
 ## Getting Started
 
@@ -63,3 +59,11 @@ It's important to make sure your submission is only visible to people with colla
 
 - Write great functions. Don't refactor large things.
 - Write a great plan for next steps.
+
+## What does a valid UK mailing address look like?
+
+- https://chatgpt.com/share/bcd2d4e4-28e6-4db9-9081-5c02cb496e4a
+
+## Where should I start writing code?
+
+- `backend/payments/views.py`

@@ -102,7 +102,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <StripeProvider stripe={null}>  {/** hack to make this compile -- we're not even using Stripe here. */}
+      <StripeProvider stripe={null}>
         <Elements>
           <ScrollToTop>
             <Navbar />

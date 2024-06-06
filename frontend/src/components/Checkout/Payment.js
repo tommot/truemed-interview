@@ -64,7 +64,7 @@ class Payment extends React.Component {
                     disabled={submitting}
                     className="btn btn-dark ml-auto"
                   >
-                    Order & Pay
+                    Pay with HSA / FSA
                   </Button>
                 </div>
               </Accordion.Body>

@@ -93,14 +93,12 @@ class Checkout extends React.Component {
     const total = this.calculateTotal();
     const { firstName, lastName } = values.shippingAddress;
 
-    return this.props.stripe
-      .createToken({ name: firstName + " " + lastName })
-      .then(res => {
+
+    return new Promise(res => {
         try {
           let formData = new FormData();
           formData.append("amount", total * 100); // *100 because stripe processes pence
           formData.append("currency", "GBP");
-          formData.append("source", res.token.id);
           return fetch(`${API_PATH}payments/`, {
             method: "POST",
             headers: {
@@ -109,13 +107,16 @@ class Checkout extends React.Component {
             body: formData
           }).then(res => {
             if (res.ok) {
-              this.props.setPayment("success");
-              this.props.emptyCart();
+              return res.json();
             } else {
               this.props.setPayment("error");
             }
             this.props.toggleCheckoutComplete();
-          });
+          }).then(res => {
+              console.dir(res);
+              // redirect to Truemed payment session url:
+              window.location.href = res.redirect_url;
+        });
         } catch (err) {
           console.log(err);
           this.props.toggleCheckoutComplete();
