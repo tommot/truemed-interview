@@ -12,7 +12,7 @@ import {
   SET_SHIPPING,
   TOGGLE_CHECKOUT_COMPLETE,
   TOGGLE_DIFFERENT_BILLING_ADDRESS,
-  SET_PAYMENT
+  SET_PAYMENT,
 } from "../actions/storeActions";
 
 import { updateObject } from "../utility";
@@ -30,11 +30,11 @@ const initialState = {
 
   paymentStatus: "",
   isCheckoutComplete: false,
-  didPaymentGoThrough: false
+  didPaymentGoThrough: false,
 };
 
 export const addProductToCart = (state, action) => {
-  const itemInCart = state.cart.find(e => e.id === action.item.id);
+  const itemInCart = state.cart.find((e) => e.id === action.item.id);
   // check if the item is in the cart already
   if (itemInCart) {
     // if it does, increment quantity of an existing item...
@@ -45,21 +45,21 @@ export const addProductToCart = (state, action) => {
     newItem.quantity = action.quantity;
 
     return updateObject(state, {
-      cart: state.cart.concat(newItem)
+      cart: state.cart.concat(newItem),
     });
   }
 };
 
 export const removeProductFromCart = (state, action) => {
   // get all cart items not matching the item being removed
-  const result = state.cart.filter(e => e.id !== action.item.id);
+  const result = state.cart.filter((e) => e.id !== action.item.id);
   return updateObject(state, { cart: result });
 };
 
 export const incProductQuantity = (state, action) => {
   const cartCopy = JSON.parse(JSON.stringify(state.cart));
-  const item = cartCopy.find(e => e.id === action.item.id);
-  const itemInStock = state.products.find(e => e.id === action.item.id);
+  const item = cartCopy.find((e) => e.id === action.item.id);
+  const itemInStock = state.products.find((e) => e.id === action.item.id);
   if (item.quantity < itemInStock.quantity) {
     item.quantity += 1;
   } else {
@@ -70,7 +70,7 @@ export const incProductQuantity = (state, action) => {
 
 export const decProductQuantity = (state, action) => {
   const cartCopy = JSON.parse(JSON.stringify(state.cart));
-  const item = cartCopy.find(e => e.id === action.item.id);
+  const item = cartCopy.find((e) => e.id === action.item.id);
   item.quantity -= 1;
   if (item.quantity === 0) {
     return removeProductFromCart(state, action);
@@ -81,8 +81,8 @@ export const decProductQuantity = (state, action) => {
 
 export const updateProductQuantity = (state, action) => {
   const cartCopy = JSON.parse(JSON.stringify(state.cart));
-  const item = cartCopy.find(e => e.id === action.item.id);
-  const itemInStock = state.products.find(e => e.id === action.item.id);
+  const item = cartCopy.find((e) => e.id === action.item.id);
+  const itemInStock = state.products.find((e) => e.id === action.item.id);
 
   if (action.quantity < itemInStock.quantity) {
     if (action.quantity <= 0) {
@@ -102,9 +102,9 @@ export const emptyCart = (state, action) => {
 
 export const calculateCart = (state, action) => {
   let subtotal = 0;
-  state.cart.map(item => (subtotal += item.price * item.quantity));
+  state.cart.map((item) => (subtotal += item.price * item.quantity));
   return updateObject(state, {
-    subtotal: subtotal
+    subtotal: subtotal,
   });
 };
 
@@ -118,7 +118,7 @@ export const toggleCheckoutComplete = (state, action) => {
 
 export const toggleDifferentBillingAddress = (state, action) => {
   return updateObject(state, {
-    isDifferentBillingAddress: !state.isDifferentBillingAddress
+    isDifferentBillingAddress: !state.isDifferentBillingAddress,
   });
 };
 
@@ -139,7 +139,7 @@ export default function storeReducer(state = initialState, action) {
       return updateObject(state, {
         products: [],
         loading: false,
-        error: action.error
+        error: action.error,
       });
 
     case ADD_PRODUCT_TO_CART:

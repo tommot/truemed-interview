@@ -8,20 +8,19 @@ import { Button, Form } from "reactstrap";
 import { Accordion } from "../Utilities/Accordion";
 import { CardElement } from "react-stripe-elements";
 
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     paymentStatus: state.store.paymentStatus,
     initialValues: {
-      isDifferentBilling: state.store.isDifferentBillingAddress
-    }
+      isDifferentBilling: state.store.isDifferentBillingAddress,
+    },
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     toggleDifferentBillingAddress: () =>
-      dispatch(toggleDifferentBillingAddress())
+      dispatch(toggleDifferentBillingAddress()),
   };
 };
 
@@ -31,10 +30,10 @@ class Payment extends React.Component {
     this.toggle = this.toggle.bind(this);
 
     this.state = {
-      collapse: false
+      collapse: false,
     };
   }
-  
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -89,7 +88,7 @@ Payment.propTypes = {
   submitting: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
   previousPage: PropTypes.func.isRequired,
-  toggleDifferentBillingAddress: PropTypes.func.isRequired
+  toggleDifferentBillingAddress: PropTypes.func.isRequired,
 };
 
 Payment = reduxForm({
@@ -98,10 +97,7 @@ Payment = reduxForm({
   forceUnregisterOnUnmount: true, // unregister fields on unmount
   keepDirtyOnReinitialize: true,
   updateUnregisteredFields: true,
-  enableReinitialize: true
+  enableReinitialize: true,
 })(Payment);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Payment);
+export default connect(mapStateToProps, mapDispatchToProps)(Payment);

@@ -9,4 +9,5 @@ djangorestframework
 djangorestframework-jwt
 Pillow
 psycopg2
+requests
 stripe

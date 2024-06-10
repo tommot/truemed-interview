@@ -5,7 +5,7 @@ import OrderFinalSuccess from "./OrderFinalSuccess";
 import OrderFinalCancelled from "./OrderFinalCancelled";
 import OrderFinalFailure from "./OrderFinalFailure";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return state.store;
 };
 
@@ -25,7 +25,7 @@ class OrderFinal extends React.Component {
 }
 
 OrderFinal.propTypes = {
-  paymentStatus: PropTypes.string
+  paymentStatus: PropTypes.string,
 };
 
 export default connect(mapStateToProps)(OrderFinal);

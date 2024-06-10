@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
   setPayment,
   toggleCheckoutComplete,
-  emptyCart
+  emptyCart,
 } from "../../store/actions/storeActions";
 import Address from "./Address";
 import Delivery from "./Delivery";
@@ -19,23 +19,23 @@ import { injectStripe } from "react-stripe-elements";
 import { reset } from "redux-form";
 import "./css/checkout.css";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     store: state.store,
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setPayment: value => dispatch(setPayment(value)),
+    setPayment: (value) => dispatch(setPayment(value)),
     emptyCart: () => dispatch(emptyCart()),
     toggleCheckoutComplete: () => dispatch(toggleCheckoutComplete()),
-    resetCheckoutForm: () => dispatch(reset("checkout"))
+    resetCheckoutForm: () => dispatch(reset("checkout")),
   };
 };
 
-const mapShippingStringToNumeric = value => {
+const mapShippingStringToNumeric = (value) => {
   switch (value) {
     case "free":
     case "collection":
@@ -55,11 +55,24 @@ class Checkout extends React.Component {
     this.handlePayment = this.handlePayment.bind(this);
 
     this.state = {
-      page: 1
+      page: 1,
+      // NOTE: Move this to store reducer
+      idempotency_key: Math.random().toString(),
     };
   }
 
   componentDidMount() {
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams);
+    const paymentStatus = urlParams.get("paymentStatus");
+
+    console.log(paymentStatus);
+    if (paymentStatus) {
+      console.log("setting payment");
+      this.props.toggleCheckoutComplete();
+      this.props.setPayment(paymentStatus);
+    }
+
     const { cart } = this.props.store;
     try {
       const serializedCart = JSON.stringify(cart);
@@ -92,37 +105,49 @@ class Checkout extends React.Component {
   handlePayment(values) {
     const total = this.calculateTotal();
     const { firstName, lastName } = values.shippingAddress;
+    const { cart } = this.props.store;
+    const cartJsonArray = cart.map((item) => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+      id: item.id.toString(),
+    }));
 
-
-    return new Promise(res => {
-        try {
-          let formData = new FormData();
-          formData.append("amount", total * 100); // *100 because stripe processes pence
-          formData.append("currency", "GBP");
-          return fetch(`${API_PATH}payments/`, {
-            method: "POST",
-            headers: {
-              accept: "application/json"
-            },
-            body: formData
-          }).then(res => {
+    return new Promise((res) => {
+      try {
+        let formData = new FormData();
+        console.log(this.props);
+        formData.append("amount", total * 100); // *100 because stripe processes pence
+        formData.append("customer_name", `${firstName}, ${lastName}`);
+        formData.append("currency", "GBP");
+        formData.append("cart_items_json", JSON.stringify(cartJsonArray));
+        formData.append("idempotency_key", this.state.idempotency_key);
+        return fetch(`${API_PATH}payments/`, {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+          },
+          body: formData,
+        })
+          .then((res) => {
             if (res.ok) {
               return res.json();
             } else {
               this.props.setPayment("error");
             }
             this.props.toggleCheckoutComplete();
-          }).then(res => {
-              console.dir(res);
-              // redirect to Truemed payment session url:
-              window.location.href = res.redirect_url;
-        });
-        } catch (err) {
-          console.log(err);
-          this.props.toggleCheckoutComplete();
-          this.props.setPayment("error");
-        }
-      });
+          })
+          .then((res) => {
+            console.dir(res);
+            // redirect to Truemed payment session url:
+            window.location.href = res.redirect_url;
+          });
+      } catch (err) {
+        console.log(err);
+        this.props.toggleCheckoutComplete();
+        this.props.setPayment("error");
+      }
+    });
   }
 
   render() {
@@ -192,12 +217,9 @@ Checkout.propTypes = {
   isCheckoutComplete: PropTypes.bool,
   resetCheckoutForm: PropTypes.func.isRequired,
   setPayment: PropTypes.func.isRequired,
-  toggleCheckoutComplete: PropTypes.func.isRequired
+  toggleCheckoutComplete: PropTypes.func.isRequired,
 };
 
-Checkout = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Checkout);
+Checkout = connect(mapStateToProps, mapDispatchToProps)(Checkout);
 
 export default injectStripe(Checkout);
